@@ -7,12 +7,12 @@ import validators
 from nltk.stem import WordNetLemmatizer
 from nltk.tag import pos_tag
 import pickle
-from nltk.corpus import stopwords
+
 
 def GetTokens(text):
     tokens = tweetTokenizer.tokenize(remove_handles(text))
     for i in range(len(tokens)-1,-1,-1):    
-        if tokens[i] in string.punctuation or ord(tokens[i][0])>127 or validators.url(tokens[i]) or tokens[i] in stopWords:
+        if tokens[i] in string.punctuation or ord(tokens[i][0])>127 or validators.url(tokens[i]):
             del tokens[i]
     return tokens
 
@@ -91,7 +91,6 @@ mostFrequentWords = []
 swearWords = []
 tweetTokenizer = TT()
 if __name__ == "__main__":
-    stopWords = set(stopwords.words("english"))
     tweetsFromFile = GetTweets()
     swearWords = GetSwearWords()
     mostFrequentWords = GetMostFrequentWords(mostFrequentWords)
